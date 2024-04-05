@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import './Login.css' ;
+import Login from './Login';
+import { Routes,Route } from 'react-router-dom';
+import Otp from './Otp';
+import Device from './Device';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+function App(){
+  return(
+    <div className='App'>
+  
+    <Routes>
+    
+    <Route path='/' element ={<Login/>}/>
+      <Route path='/Otp' element ={<Otp/>}/>
+      <Route path='/Device' element ={<Device/>}/>
+    </Routes>
     </div>
-  );
+  )
 }
-
-export default App;
+export default App
