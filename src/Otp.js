@@ -1,11 +1,12 @@
-import { useState } from "react";
-import "./Otp.css";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./Otp.css";
 
 export default function Otp() {
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleChange(e, index) {
     if (isNaN(e.target.value)) return false;
@@ -18,18 +19,22 @@ export default function Otp() {
   }
 
   const handleSubmit = () => {
-    // Join the OTP array elements into a single string
     const otpString = otp.join('');
+    if (otpString.trim() === "") {
+      setErrorMessage("Please enter OTP");
+      return;
+    }
+    if(otpString.length !== 6){
+      setErrorMessage("Please enter 6 digit OTP");
+      return;
+    } 
     navigate('/Device');
     axios.post('https://uat.valorpaytech.com/api/login', { otp: otpString })
       .then(res => {
         console.log(res.data);
-        
-       
       })
       .catch(error => {
         console.error('Error submitting OTP:', error);
-        
       });
   };
 
@@ -50,9 +55,11 @@ export default function Otp() {
           />;
         })}
       </div>
+
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+
       <center>
-    
-        <button className="submit-button" onClick={handleSubmit}>Submit</button>
+        <button className="submit-button" onClick={handleSubmit}>Verify</button>
       </center>
     </div>
   );

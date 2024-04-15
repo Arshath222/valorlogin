@@ -3,34 +3,41 @@
     margin: 20px auto;
     padding: 10px;
     display: flex;
+    color: antiquewhite;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
 .input-box {
-    display:inline-block;
-    width:50px;
-    height:50px;
-    text-align:center;
+    height: 45px;
+    width: 42px;
+    border-radius: 4px;
+    outline: none;
+    font-size: 1.125rem;
+    text-align: center;
+    border: 2px solid #ddd;
+    background-color: white;
    
 
     
-    &:focus{
-        border: 2px slategray;
+   .input-box:focus {
+        border: 2px solid rgb(255, 255, 255);
     }
 }
 
-.submit-button{
-    width: 380px;
-    height: 50px;
-    border-radius: 100px;
-    background-color: slategrey;
-    padding: 10px;
+.submit-button {
+    width: 300px; 
+    height: auto; 
+    padding: 10px; 
+    border-radius: 4px; 
+    background-color: rgb(22, 153, 193);
     font-size: 25px;
     border: none;
-    
+    color: rgb(248, 248, 248); 
+    cursor: pointer; 
 }
+
 
 .container {
     text-align: center;
