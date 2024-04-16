@@ -13,10 +13,10 @@ function Login() {
 
   //
 
-  //   const enteredCredentials = {
-  //     emailId: username,
-  //     password: password
-  //   };
+   const enteredCredentials = {
+    emailId: username,
+    password: password
+   };
 
   //   const correctCredentials = {
   //     emailId: 'Arshath',
@@ -41,11 +41,18 @@ function Login() {
   //   }
   // };
   const handleLogin = () => {
-    axios.post('https://uat.valorpaytech.com/api/device/list').then(res => {
+    axios.post('https://uat.valorpaytech.com/api/loginOTP',enteredCredentials).then(res => {
+
+
       console.log("res", res)
       if(res.status===200){
         localStorage.setItem('user',JSON.stringify(res.data.user))
-        navigate('/Otp'); 
+        if(res.data.data.faData.response.is_enable_2fa === 1){
+          navigate('/Otp'); 
+        }else{
+          navigate('/Device'); 
+        }
+       
       }
     }).catch(err => {
       console.log("err ", err )
