@@ -10,6 +10,7 @@ import { Checkbox, Button, Menu, MenuItem, Dialog, DialogTitle, DialogContent, D
 import { useState,useEffect } from "react";
 import ListIcon from '@mui/icons-material/List';
 import { Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function BasicTable() {
   const [openForm, setOpenForm] = useState(false);
@@ -20,9 +21,17 @@ export default function BasicTable() {
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
+    console.log('I am call')
     const devices = localStorage.getItem("devices") ? JSON.parse(localStorage.getItem("devices")) : []
     setDeviceList(devices);
-  }, []);
+  },[])
+
+  //   axios.post('https://uat.valorpaytech.com/api/device/list/25/0',{
+  //     headers: {
+  // 'authtoken': "7e4f9d40-fd4d-11ee-af2f-9de1e4ea3a77"
+  //     }
+  //   }).then((res)=>console.log("REEEE",res))
+  // }, []);
 
  
 
@@ -50,6 +59,8 @@ export default function BasicTable() {
     setEditedDevice(row);
     setOpenForm(true);
   };
+
+
 
  
 
@@ -80,7 +91,9 @@ export default function BasicTable() {
   };
 
   const handleAddSave = () => {
-  if(!editedDevice || !editedDevice.deviceName || !editedDevice.Manufacturer || !editedDevice.Feature || !editedDevice.Status){
+   const allow=Object.values(editedDevice).some((e)=>e.length==0)
+   console.log("alloe",allow)
+  if(!editedDevice || !editedDevice.deviceName || !editedDevice.Manufacturer || !editedDevice.Feature || !editedDevice.Status||allow){
     alert('Please fill all the fields');
     return;
   }
@@ -90,7 +103,6 @@ export default function BasicTable() {
     setOpenForm(false);
   
   };
-
   const handleHeaderCheckboxChange = () => {
     const updatedDeviceList = deviceList.map(device => ({
       ...device,
@@ -111,6 +123,8 @@ export default function BasicTable() {
 
   return (
     <>
+
+
       <div style={{ marginRight: 'auto', display:'flex',justifyContent:'space-between' }}> 
       <Button className = "add-button" variant="contained" onClick={handleOpenForm}>Add Device</Button>
     <Button onClick={handleLogout}>Logout</Button>
@@ -129,7 +143,7 @@ export default function BasicTable() {
               <TableCell align="left">Manufacturer</TableCell>
               <TableCell align="left">Feature</TableCell>
               <TableCell align="left">Status</TableCell>
-              <TableCell align="left">Option</TableCell>
+              <TableCell align="left">Action</TableCell>
              
             </TableRow>
             
